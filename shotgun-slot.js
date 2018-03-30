@@ -10,8 +10,8 @@
 
 var DRY_RUN = false,
     HOUR_MIN = 0,
-    HOUR_MAX = 6,
-    DAYS_ID_LIKE_TO_DO_STUFFS = [2];
+    HOUR_MAX = 12,
+    DAYS_ID_LIKE_TO_DO_STUFFS = [3];
   //  DAYS = ["Lundi-0", "Mardi-1", "Mercredi-2", "Jeudi-3", "Vendredi-4", "Samedi-5", "Dimanche-6"];
 
 
@@ -21,6 +21,7 @@ var DRY_RUN = false,
 })();
 
 function sleep(ms) {
+    console.log("sleeping for " + parseInt(ms / 1000) + "s");
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -44,6 +45,7 @@ async function checkSlot() {
             }
             if (hour >= HOUR_MIN && hour <= HOUR_MAX) {
                 slot = events[day];
+                break;
             }
         }
     }
