@@ -96,10 +96,10 @@ async function checkSlot() {
     for (week = 0; week <= Math.max(...WEEKS_ID_LIKE_TO_DO_STUFFS); week++) {
         await sleep((1 + Math.random()) * 5 * 1e3); // random delay between 5/10 seconds
 
-        if (week in WEEKS_ID_LIKE_TO_DO_STUFFS) {
+        if (WEEKS_ID_LIKE_TO_DO_STUFFS.includes(week)) {
             events = document.getElementsByClassName("fc-time-grid-event");
             for (day = 0; day < events.length; day++) {
-                if (day in DAYS_ID_LIKE_TO_DO_STUFFS) {
+                if (DAYS_ID_LIKE_TO_DO_STUFFS.includes(day)) {
                     hour_array = events[day].getElementsByClassName("fc-time")[0]
                         .getAttribute("data-full")
                         .split(" ");
