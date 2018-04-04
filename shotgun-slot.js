@@ -1,22 +1,23 @@
 // ==UserScript==
 // @name         Shotgun Slot
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  zboub
+// @version      1.0
+// @description  Automagically take a slot (config inside)
 // @author       JeanMax
 // @match        https://projects.intra.42.fr/projects/*/slots
+// @match        https://projects.intra.42.fr/*/mine
 // @grant        none
 // ==/UserScript==
-
-
-/*
-  note: if you want to take multiple slots for one project,
-        you could use take-another-slot.js to redirect back to the slot page
-*/
 
 var DRY_RUN = true,
     /*
       in dry-run mode, the script won't confirm the slot
+    */
+
+    MULTIPLE_SLOTS = false,
+    /*
+      if enabled, we'll click on the 'subscibe to defense' button
+      to take multiple slots for one project
     */
 
     HOUR_MIN = 14,
@@ -75,12 +76,22 @@ function sleep(ms) {
 
 async function checkSlot() {
     var week, day, hour, hour_array,
+        subscribe = false,
         slot = false,
         button = false,
         arrow = false,
         events = [];
 
     await sleep((1 + Math.random()) * 1e4); // random delay between 10/20 seconds
+
+    if (MULTIPLE_SLOTS) {
+        subscribe = document.getElementsByClassName("btn btn-primary btn-block")[0];
+        if (subscribe) {
+            subscribe.click();
+            await sleep(3000);
+            return;
+        }
+    }
 
     for (week = 0; week <= Math.max(...WEEKS_ID_LIKE_TO_DO_STUFFS); week++) {
         await sleep((1 + Math.random()) * 5 * 1e3); // random delay between 5/10 seconds
