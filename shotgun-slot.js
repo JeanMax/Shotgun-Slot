@@ -8,11 +8,41 @@
 // @grant        none
 // ==/UserScript==
 
-var DRY_RUN = false,
-    HOUR_MIN = 0,
-    HOUR_MAX = 12,
-    DAYS_ID_LIKE_TO_DO_STUFFS = [3];
-  //  DAYS = ["Lundi-0", "Mardi-1", "Mercredi-2", "Jeudi-3", "Vendredi-4", "Samedi-5", "Dimanche-6"];
+var DRY_RUN = true,
+    /*
+      in dry-run mode, the script won't confirm the slot
+    */
+
+    HOUR_MIN = 14,
+    /*
+      minimum hour (24h format) to take a slot
+
+      exemple: don't take any slot before 2pm -> HOUR_MIN = 14
+      note: a slot at 14:00 would be accepted
+    */
+
+    HOUR_MAX = 21,
+    /*
+      maximum hour (24h format) to take a slot
+
+      exemple: don't take any slot after 9pm -> HOUR_MAX = 21
+      note: a slot at 21:45 would be accepted
+     */
+
+    DAYS_ID_LIKE_TO_DO_STUFFS = [0, 4];
+    /*
+      which day(s) should we be watching?
+       days from 0 to 6:
+        0 -> Monday
+        1 -> Tuesday
+        2 -> Wednesday
+        3 -> Thursday
+        4 -> Friday
+        5 -> Saturday
+        6 -> Sunday
+
+       exemple: Monday and Friday -> DAYS_ID_LIKE_TO_DO_STUFFS = [0, 4]
+    */
 
 
 (function() {
