@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Shotgun Slot
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Automagically take a slot (config inside)
 // @author       JeanMax
 // @match        https://projects.intra.42.fr/projects/*/slots
