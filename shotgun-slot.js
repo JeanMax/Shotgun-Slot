@@ -75,11 +75,9 @@ function sleep(ms) {
 }
 
 async function checkSlot() {
-    var week, day, hour, hour_array,
-        subscribe = false,
-        slot = false,
-        button = false,
-        arrow = false,
+    var week, day, hour, hour_array, event,
+        subscribe, slot, button, arrow,
+        cols = [],
         events = [];
 
     await sleep((1 + Math.random()) * 1e4); // random delay between 10/20 seconds
@@ -97,19 +95,26 @@ async function checkSlot() {
         await sleep((1 + Math.random()) * 5 * 1e3); // random delay between 5/10 seconds
 
         if (WEEKS_ID_LIKE_TO_DO_STUFFS.includes(week)) {
-            events = document.getElementsByClassName("fc-time-grid-event");
-            for (day = 0; day < events.length; day++) {
+            cols = document.getElementsByClassName("fc-content-col");
+            for (day = 0; day < 7; day++) {
                 if (DAYS_ID_LIKE_TO_DO_STUFFS.includes(day)) {
-                    hour_array = events[day].getElementsByClassName("fc-time")[0]
-                        .getAttribute("data-full")
-                        .split(" ");
-                    hour = parseInt(hour_array[0]);
-                    if (hour_array[1] === "PM") {
-                        hour += 12;
-                    }
-                    if (hour >= HOUR_MIN && hour <= HOUR_MAX) {
-                        slot = events[day];
-                        break;
+                    events = cols[day].getElementsByClassName("fc-time-grid-event");
+                    for (event = 0; event < events.length; event++) {
+                        hour_array = events[event].getElementsByClassName("fc-time")[0]
+                            .getAttribute("data-full")
+                            .split(" ");
+                        hour = parseInt(hour_array[0]);
+                        if (hour_array[1] === "PM") {
+                            hour += 12;
+                        }
+                        if (hour >= HOUR_MIN && hour <= HOUR_MAX) {
+                            slot = cols[day];
+                            console.log(
+                                "slot found at: "
+                                + parseInt(hour) + "h, d" + parseInt(day) + ", w" + parseInt(week)
+                            );
+                            break;
+                        }
                     }
                 }
             }
