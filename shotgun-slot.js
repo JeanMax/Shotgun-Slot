@@ -108,7 +108,7 @@ async function checkSlot() {
                             hour += 12;
                         }
                         if (hour >= HOUR_MIN && hour <= HOUR_MAX) {
-                            slot = cols[day];
+                            slot = events[event];
                             console.log(
                                 "slot found at: "
                                 + parseInt(hour) + "h, d" + parseInt(day) + ", w" + parseInt(week)
